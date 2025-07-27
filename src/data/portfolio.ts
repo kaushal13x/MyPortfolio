@@ -73,6 +73,51 @@ export const portfolioData = {
       image: "https://images.pexels.com/photos/265667/pexels-photo-265667.jpeg?auto=compress&cs=tinysrgb&w=500",
       github: "https://github.com/kaushalkumar",
       demo: "https://blog-demo.com"
+    },
+    {
+      id: 4,
+      title: "CI-CD PIPELINE",
+      description: "Implemented a complete CI/CD pipeline for a Flask application using Docker, Jenkins, and GitHub!",
+      technologies: ["Docker", "Jenkins", "Flask", "GitHub"],
+      image: "https://images.pexels.com/photos/267614/pexels-photo-267614.jpeg?auto=compress&cs=tinysrgb&w=500",
+      github: "",
+      demo: "https://www.linkedin.com/posts/kaushal-kumar-5014a5300_post037-docker-jenkins-activity-7351973322512891906-JTgK?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEz1fpEBXYtiV3JSyEwWMvQOH3WBF_RlFFg"
+    },
+    {
+      id: 5,
+      title: "MicroServicesArchitecture",
+      description: "Microservices Architecture with two independent Flask services — all containerized and running seamlessly using Docker Compose.",
+      technologies: ["Docker", "Flask", "Docker Compose"],
+      image: "https://images.pexels.com/photos/267614/pexels-photo-267614.jpeg?auto=compress&cs=tinysrgb&w=500",
+      github: "",
+      demo: "https://www.linkedin.com/posts/kaushal-kumar-5014a5300_post042-microservicesarchitecture-microservices-activity-7353118411356270593-S5hA?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEz1fpEBXYtiV3JSyEwWMvQOH3WBF_RlFFg"
+    },
+    {
+      id: 6,
+      title: "All-in-One Automation Dashboard using Python + Streamlit!",
+      description: "This single app lets you: Post on Instagram, Share updates on LinkedIn, Send Emails, Make Voice Calls using Twilio, Send SMS, Post Tweets, Send WhatsApp Messages. All in one place, with a user-friendly web interface — no coding needed at runtime!",
+      technologies: ["Python", "Streamlit", "Twilio", "APIs"],
+      image: "https://images.pexels.com/photos/267614/pexels-photo-267614.jpeg?auto=compress&cs=tinysrgb&w=500",
+      github: "",
+      demo: "https://www.linkedin.com/posts/kaushal-kumar-5014a5300_post016-python-streamlit-activity-7349038559820972034-6Cw4?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEz1fpEBXYtiV3JSyEwWMvQOH3WBF_RlFFg"
+    },
+    {
+      id: 7,
+      title: "Machine Learning model inside a Docker container",
+      description: "Executed a Linear Regression model inside a fully isolated Docker environment — a powerful step towards production-ready ML workflows.",
+      technologies: ["Machine Learning", "Docker", "Python"],
+      image: "https://images.pexels.com/photos/267614/pexels-photo-267614.jpeg?auto=compress&cs=tinysrgb&w=500",
+      github: "",
+      demo: "https://www.linkedin.com/posts/kaushal-kumar-5014a5300_post036-mlabrtask01-docker-activity-7351926182247821312-9OOz?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEz1fpEBXYtiV3JSyEwWMvQOH3WBF_RlFFg"
+    },
+    {
+      id: 8,
+      title: "Mastered Docker-in-Docker (DIND)",
+      description: "Each container can run its own isolated Docker daemon — like creating a mini Docker universe inside another!",
+      technologies: ["Docker", "DevOps"],
+      image: "https://images.pexels.com/photos/267614/pexels-photo-267614.jpeg?auto=compress&cs=tinysrgb&w=500",
+      github: "",
+      demo: "https://www.linkedin.com/posts/kaushal-kumar-5014a5300_post026-docker-devops-activity-7350815098099142659-Cv5_?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEz1fpEBXYtiV3JSyEwWMvQOH3WBF_RlFFg"
     }
   ],
   contact: {
