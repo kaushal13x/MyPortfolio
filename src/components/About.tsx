@@ -1,6 +1,7 @@
 import React from 'react';
 import { User, GraduationCap, Briefcase } from 'lucide-react';
 import { portfolioData } from '../data/portfolio';
+import second from '../second.jpg';
 
 const About: React.FC = () => {
   return (
@@ -17,69 +18,56 @@ const About: React.FC = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Profile Section */}
-          <div className="text-center lg:text-left">
-            <div className="relative inline-block mb-8">
-              <div className="w-64 h-64 mx-auto lg:mx-0 rounded-full overflow-hidden border-4 border-cyan-400 shadow-lg shadow-cyan-500/50">
-                <img 
-                  src={portfolioData.profilePic}
-                  alt="Kaushal Kumar" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400/20 to-purple-400/20 animate-pulse"></div>
+          {/* Bio Section Only - Photo Removed */}
+          <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 border border-purple-500/30">
+            <div className="flex items-center gap-2 mb-4">
+              <User className="text-cyan-400" size={20} />
+              <h3 className="text-xl font-semibold text-white">Bio</h3>
             </div>
-            
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 border border-purple-500/30">
-              <div className="flex items-center gap-2 mb-4">
-                <User className="text-cyan-400" size={20} />
-                <h3 className="text-xl font-semibold text-white">Bio</h3>
-              </div>
-              <p className="text-gray-300 leading-relaxed">
-                {portfolioData.about.bio}
-              </p>
+            <p className="text-gray-300 leading-relaxed">
+              I am a <span className="text-cyan-400 font-semibold">Full Stack Developer</span> and <span className="text-purple-400 font-semibold">DevOps Engineer</span> passionate about building robust, scalable, and user-centric web applications. My expertise spans Java, Spring Boot, React, Docker, CI/CD, and cloud-native solutions. I thrive on solving complex problems, automating workflows, and delivering seamless digital experiences from backend to frontend. Let's create something amazing together!
+            </p>
+          </div>
+        </div>
+
+        {/* Timeline Section */}
+        <div className="grid lg:grid-cols-2 gap-12 mt-16">
+          {/* Education */}
+          <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 border border-purple-500/30">
+            <div className="flex items-center gap-2 mb-6">
+              <GraduationCap className="text-cyan-400" size={20} />
+              <h3 className="text-xl font-semibold text-white">Education</h3>
             </div>
+            {portfolioData.about.education.map((edu, index) => (
+              <div key={index} className="border-l-2 border-cyan-400 pl-4 pb-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-3 h-3 bg-cyan-400 rounded-full -ml-6"></div>
+                  <span className="text-purple-400 font-mono text-sm">{edu.year}</span>
+                </div>
+                <h4 className="text-white font-semibold">{edu.degree}</h4>
+                <p className="text-gray-300">{edu.field}</p>
+                <p className="text-gray-400 text-sm">{edu.institution}</p>
+              </div>
+            ))}
           </div>
 
-          {/* Timeline Section */}
-          <div className="space-y-8">
-            {/* Education */}
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 border border-purple-500/30">
-              <div className="flex items-center gap-2 mb-6">
-                <GraduationCap className="text-cyan-400" size={20} />
-                <h3 className="text-xl font-semibold text-white">Education</h3>
-              </div>
-              {portfolioData.about.education.map((edu, index) => (
-                <div key={index} className="border-l-2 border-cyan-400 pl-4 pb-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-3 h-3 bg-cyan-400 rounded-full -ml-6"></div>
-                    <span className="text-purple-400 font-mono text-sm">{edu.year}</span>
-                  </div>
-                  <h4 className="text-white font-semibold">{edu.degree}</h4>
-                  <p className="text-gray-300">{edu.field}</p>
-                  <p className="text-gray-400 text-sm">{edu.institution}</p>
-                </div>
-              ))}
+          {/* Experience */}
+          <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 border border-purple-500/30">
+            <div className="flex items-center gap-2 mb-6">
+              <Briefcase className="text-cyan-400" size={20} />
+              <h3 className="text-xl font-semibold text-white">Experience</h3>
             </div>
-
-            {/* Experience */}
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 border border-purple-500/30">
-              <div className="flex items-center gap-2 mb-6">
-                <Briefcase className="text-cyan-400" size={20} />
-                <h3 className="text-xl font-semibold text-white">Experience</h3>
-              </div>
-              {portfolioData.about.experience.map((exp, index) => (
-                <div key={index} className="border-l-2 border-cyan-400 pl-4 pb-4 last:pb-0">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-3 h-3 bg-cyan-400 rounded-full -ml-6"></div>
-                    <span className="text-purple-400 font-mono text-sm">{exp.duration}</span>
-                  </div>
-                  <h4 className="text-white font-semibold">{exp.role}</h4>
-                  <p className="text-cyan-400 mb-2">{exp.company}</p>
-                  <p className="text-gray-300 text-sm">{exp.description}</p>
+            {portfolioData.about.experience.map((exp, index) => (
+              <div key={index} className="border-l-2 border-cyan-400 pl-4 pb-4 last:pb-0">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-3 h-3 bg-cyan-400 rounded-full -ml-6"></div>
+                  <span className="text-purple-400 font-mono text-sm">{exp.duration}</span>
                 </div>
-              ))}
-            </div>
+                <h4 className="text-white font-semibold">{exp.role}</h4>
+                <p className="text-cyan-400 mb-2">{exp.company}</p>
+                <p className="text-gray-300 text-sm">{exp.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

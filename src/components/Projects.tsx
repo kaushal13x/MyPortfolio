@@ -1,23 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ExternalLink, Github, Code } from 'lucide-react';
 import { portfolioData } from '../data/portfolio';
 
 const Projects: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'major' | 'minor'>('major');
+  const majorProjects = portfolioData.projects;
+  const minorProjects = portfolioData.minorProjects || [];
+  const projectsToShow = activeTab === 'major' ? majorProjects : minorProjects;
+
   return (
     <section className="py-20 bg-gray-900 relative overflow-hidden">
       {/* Background Effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-cyan-900/20"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
+          <div className="inline-flex rounded-lg overflow-hidden shadow-lg mb-8">
+            <button
+              className={`px-8 py-3 font-bold text-lg transition-all duration-300 focus:outline-none ${activeTab === 'major' ? 'bg-gradient-to-r from-cyan-500 to-purple-500 text-white shadow-lg scale-105' : 'bg-gray-800 text-cyan-300 hover:bg-gray-700'}`}
+              onClick={() => setActiveTab('major')}
+            >
+              Major Projects
+            </button>
+            <button
+              className={`px-8 py-3 font-bold text-lg transition-all duration-300 focus:outline-none ${activeTab === 'minor' ? 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white shadow-lg scale-105' : 'bg-gray-800 text-purple-300 hover:bg-gray-700'}`}
+              onClick={() => setActiveTab('minor')}
+            >
+              Minor Projects
+            </button>
+          </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 font-orbitron bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-            Featured Projects
+            {activeTab === 'major' ? 'Major Projects' : 'Minor Projects'}
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto rounded-full"></div>
         </div>
 
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
-          {portfolioData.projects.map((project) => (
+          {projectsToShow.map((project) => (
             <div 
               key={project.id}
               className="group relative bg-gray-800/50 backdrop-blur-sm rounded-lg overflow-hidden border border-gray-700 hover:border-cyan-400 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/20"

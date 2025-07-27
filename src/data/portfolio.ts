@@ -120,6 +120,26 @@ export const portfolioData = {
       demo: "https://www.linkedin.com/posts/kaushal-kumar-5014a5300_post026-docker-devops-activity-7350815098099142659-Cv5_?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEz1fpEBXYtiV3JSyEwWMvQOH3WBF_RlFFg"
     }
   ],
+  minorProjects: [
+    {
+      id: 101,
+      title: "Portfolio Website",
+      description: "A personal portfolio website to showcase my skills and projects.",
+      technologies: ["React", "Tailwind CSS"],
+      image: "https://images.pexels.com/photos/267614/pexels-photo-267614.jpeg?auto=compress&cs=tinysrgb&w=500",
+      github: "https://github.com/kaushalkumar/portfolio",
+      demo: "https://kaushalkumar.dev/"
+    },
+    {
+      id: 102,
+      title: "Weather App",
+      description: "A simple weather app using OpenWeatherMap API.",
+      technologies: ["JavaScript", "API", "HTML", "CSS"],
+      image: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=500",
+      github: "https://github.com/kaushalkumar/weather-app",
+      demo: "https://weatherapp-demo.com"
+    }
+  ],
   contact: {
     email: "kaushal.kumar@example.com",
     linkedin: "https://www.linkedin.com/in/kaushal-kumar-5014a5300?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",

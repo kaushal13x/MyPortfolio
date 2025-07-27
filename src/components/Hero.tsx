@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowDown, Github, Linkedin, Mail, Instagram, Twitter, MessageCircle } from 'lucide-react';
 import { portfolioData } from '../data/portfolio';
+import dp from "../dp.jpg";
 
 const Hero: React.FC = () => {
   const [currentRole, setCurrentRole] = useState(0);
@@ -55,7 +56,15 @@ const Hero: React.FC = () => {
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        <div className="mb-8">
+        {/* Profile Picture */}
+        <div className="mb-8 flex flex-col items-center justify-center">
+          <div className="neon-border mb-6">
+            <img
+              src={dp}
+              alt="Kaushal Kumar Profile"
+              className="profile-picture w-40 h-40 object-cover mx-auto"
+            />
+          </div>
           <h1 className="text-6xl md:text-8xl font-bold mb-4 font-orbitron">
             <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse">
               {portfolioData.hero.name}
