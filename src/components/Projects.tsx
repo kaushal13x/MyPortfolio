@@ -1,20 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ExternalLink, Github, Code } from 'lucide-react';
 import { portfolioData } from '../data/portfolio';
 
 const Projects: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'major' | 'minor'>('major');
+  const [isVisible, setIsVisible] = useState(false);
   const majorProjects = portfolioData.projects;
   const minorProjects = portfolioData.minorProjects || [];
   const projectsToShow = activeTab === 'major' ? majorProjects : minorProjects;
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const section = document.getElementById('projects');
+    if (section) {
+      observer.observe(section);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="py-20 bg-gray-900 relative overflow-hidden">
+    <section id="projects" className="py-20 bg-gray-900 relative overflow-hidden">
       {/* Background Effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-cyan-900/20"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-10">
+        <div className={`text-center mb-10 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="inline-flex rounded-lg overflow-hidden shadow-lg mb-8">
             <button
               className={`px-8 py-3 font-bold text-lg transition-all duration-300 focus:outline-none ${activeTab === 'major' ? 'bg-gradient-to-r from-cyan-500 to-purple-500 text-white shadow-lg scale-105' : 'bg-gray-800 text-cyan-300 hover:bg-gray-700'}`}
@@ -35,7 +54,7 @@ const Projects: React.FC = () => {
           <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto rounded-full"></div>
         </div>
 
-        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
+        <div className={`grid lg:grid-cols-2 xl:grid-cols-3 gap-8 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {projectsToShow.map((project) => (
             <div 
               key={project.id}

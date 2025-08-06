@@ -25,7 +25,7 @@ const About: React.FC = () => {
               <h3 className="text-xl font-semibold text-white">Bio</h3>
             </div>
             <p className="text-gray-300 leading-relaxed">
-              I am a <span className="text-cyan-400 font-semibold">Full Stack Developer</span> and <span className="text-purple-400 font-semibold">DevOps Engineer</span> passionate about building robust, scalable, and user-centric web applications. My expertise spans Java, Spring Boot, React, Docker, CI/CD, and cloud-native solutions. I thrive on solving complex problems, automating workflows, and delivering seamless digital experiences from backend to frontend. Let's create something amazing together!
+              A very passionate <span className="text-cyan-400 font-semibold">DevOps & CloudOps engineer</span> with hands-on experience in automation, cloud infrastructure, and CI/CD pipelines. Good knowledge of tools like <span className="text-purple-400 font-semibold">Docker, Kubernetes, Jenkins, Git and Terraform</span>. Familiar with <span className="text-cyan-400 font-semibold">Amazon Web Services (AWS)</span> to deploy scalable and reliable cloud-based solutions.
             </p>
           </div>
         </div>

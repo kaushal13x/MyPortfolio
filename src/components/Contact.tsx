@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Mail, Send, Linkedin, Github, Instagram, MessageCircle, Twitter } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Mail, Send, Linkedin, Github, Instagram, MessageCircle, Twitter, MessageSquare } from 'lucide-react';
 import { portfolioData } from '../data/portfolio';
 
 const Contact: React.FC = () => {
@@ -10,6 +10,26 @@ const Contact: React.FC = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const section = document.getElementById('contact');
+    if (section) {
+      observer.observe(section);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -21,30 +41,71 @@ const Contact: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus('idle');
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
-    setIsSubmitting(false);
-    
-    // You can integrate with actual form submission service here
-    alert('Message sent successfully!');
+    try {
+      // Using Formspree for email sending
+      const response = await fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+      
+      if (response.ok) {
+        setSubmitStatus('success');
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        throw new Error('Failed to send message');
+      }
+      
+    } catch (error) {
+      console.error('Email sending failed:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleEmailClick = () => {
+    const subject = encodeURIComponent('Portfolio Contact');
+    const body = encodeURIComponent('Hi Kaushal,\n\nI would like to discuss...');
+    window.open(`mailto:${portfolioData.contact.email}?subject=${subject}&body=${body}`, '_blank');
+  };
+
+  const handleWhatsAppClick = () => {
+    const message = encodeURIComponent('Hi Kaushal Kumar, I would like to discuss...');
+    window.open(`https://wa.me/916200629005?text=${message}`, '_blank');
+  };
+
+  const handleCallClick = () => {
+    window.open('tel:+91916200629005', '_blank');
+  };
+
+  const handleSMSClick = () => {
+    const message = encodeURIComponent('Hi Kaushal Kumar, I would like to discuss...');
+    window.open(`sms:+91916200629005?body=${message}`, '_blank');
   };
 
   return (
-    <section className="py-20 bg-gray-900 relative overflow-hidden">
+    <section id="contact" className="py-20 bg-gray-900 relative overflow-hidden">
       {/* Background Effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-cyan-900/20"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 font-orbitron bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
             Get In Touch
           </h2>
@@ -55,7 +116,7 @@ const Contact: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className={`grid lg:grid-cols-2 gap-12 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* Contact Form */}
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-8 border border-gray-700">
             <h3 className="text-2xl font-semibold text-white mb-6 flex items-center gap-2">
@@ -131,6 +192,23 @@ const Contact: React.FC = () => {
                   </>
                 )}
               </button>
+              
+              {/* Status Messages */}
+              {submitStatus === 'success' && (
+                <div className="mt-4 p-4 bg-green-600/20 border border-green-500/30 rounded-lg">
+                  <p className="text-green-400 text-center">
+                    ✅ Message sent successfully! I'll get back to you soon.
+                  </p>
+                </div>
+              )}
+              
+              {submitStatus === 'error' && (
+                <div className="mt-4 p-4 bg-red-600/20 border border-red-500/30 rounded-lg">
+                  <p className="text-red-400 text-center">
+                    ❌ Failed to send message. Please try again or contact me directly.
+                  </p>
+                </div>
+              )}
             </form>
           </div>
 
@@ -158,11 +236,19 @@ const Contact: React.FC = () => {
                 </a>
                 
                 <a
-                  href={`mailto:${portfolioData.contact.email}`}
-                  className="flex items-center gap-3 p-4 bg-gray-700 hover:bg-red-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-red-500/50"
+                  onClick={handleEmailClick}
+                  className="flex items-center gap-3 p-4 bg-gray-700 hover:bg-red-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-red-500/50 cursor-pointer"
                 >
                   <Mail className="text-red-400" size={24} />
                   <span className="text-white font-medium">Email</span>
+                </a>
+                
+                <a
+                  onClick={handleWhatsAppClick}
+                  className="flex items-center gap-3 p-4 bg-gray-700 hover:bg-green-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/50 cursor-pointer"
+                >
+                  <MessageSquare className="text-green-400" size={24} />
+                  <span className="text-white font-medium">WhatsApp</span>
                 </a>
                 
                 <a
@@ -172,19 +258,13 @@ const Contact: React.FC = () => {
                   <Instagram className="text-pink-400" size={24} />
                   <span className="text-white font-medium">Instagram</span>
                 </a>
+                
                 <a
                   href={portfolioData.contact.twitter}
                   className="flex items-center gap-3 p-4 bg-gray-700 hover:bg-blue-400 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-400/50"
                 >
                   <Twitter className="text-blue-400" size={24} />
                   <span className="text-white font-medium">Twitter</span>
-                </a>
-                <a
-                  href={portfolioData.contact.discord}
-                  className="flex items-center gap-3 p-4 bg-gray-700 hover:bg-indigo-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/50"
-                >
-                  <MessageCircle className="text-indigo-400" size={24} />
-                  <span className="text-white font-medium">Discord</span>
                 </a>
               </div>
             </div>
@@ -195,13 +275,38 @@ const Contact: React.FC = () => {
               
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <Mail className="text-cyan-400" size={20} />
-                  <span className="text-gray-300">{portfolioData.contact.email}</span>
+                  <button
+                    onClick={handleCallClick}
+                    className="flex items-center gap-3 p-3 bg-gray-700 hover:bg-blue-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/50 cursor-pointer"
+                  >
+                    <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                    </svg>
+                    <span className="text-gray-300">Call</span>
+                  </button>
                 </div>
                 
                 <div className="flex items-center gap-3">
-                  <MessageCircle className="text-purple-400" size={20} />
-                  <span className="text-gray-300">{portfolioData.contact.discord}</span>
+                  <button
+                    onClick={handleSMSClick}
+                    className="flex items-center gap-3 p-3 bg-gray-700 hover:bg-yellow-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-yellow-500/50 cursor-pointer"
+                  >
+                    <svg className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                    </svg>
+                    <span className="text-gray-300">Text Message</span>
+                  </button>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={handleWhatsAppClick}
+                    className="flex items-center gap-3 p-3 bg-gray-700 hover:bg-green-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/50 cursor-pointer"
+                  >
+                    <MessageSquare className="text-green-400" size={20} />
+                    <span className="text-gray-300">WhatsApp</span>
+                  </button>
                 </div>
               </div>
             </div>

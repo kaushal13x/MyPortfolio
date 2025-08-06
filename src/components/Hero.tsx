@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowDown, Github, Linkedin, Mail, Instagram, Twitter, MessageCircle } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail, Instagram, Twitter, MessageCircle, Loader2 } from 'lucide-react';
 import { portfolioData } from '../data/portfolio';
-import dp from "../dp.jpg";
+import dp from '../dp.jpg';
 
 const Hero: React.FC = () => {
   const [currentRole, setCurrentRole] = useState(0);
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [scrollTarget, setScrollTarget] = useState<'projects' | 'contact' | null>(null);
 
   useEffect(() => {
     const roles = portfolioData.hero.roles;
@@ -31,6 +33,33 @@ const Hero: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, [displayText, isDeleting, currentRole]);
+
+  const scrollToSection = async (target: 'projects' | 'contact') => {
+    if (isScrolling) return; // Prevent multiple scrolls
+    
+    setIsScrolling(true);
+    setScrollTarget(target);
+    
+    // Add a small delay for visual feedback
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
+    const section = document.getElementById(target);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+      
+      // Reset state after scroll animation completes
+      setTimeout(() => {
+        setIsScrolling(false);
+        setScrollTarget(null);
+      }, 1500);
+    } else {
+      setIsScrolling(false);
+      setScrollTarget(null);
+    }
+  };
+
+  const scrollToProjects = () => scrollToSection('projects');
+  const scrollToContact = () => scrollToSection('contact');
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900">
@@ -65,14 +94,13 @@ const Hero: React.FC = () => {
               className="profile-picture w-40 h-40 object-cover mx-auto"
             />
           </div>
-          <h1 className="text-6xl md:text-8xl font-bold mb-4 font-orbitron">
+          <h1 className="text-6xl md:text-8xl font-bold mb-4 font-cinzel">
             <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse">
               {portfolioData.hero.name}
             </span>
           </h1>
           
           <div className="text-2xl md:text-3xl font-medium mb-6 h-12 flex items-center justify-center">
-            <span className="text-cyan-400 mr-2">{'>'}</span>
             <span className="text-white font-mono">
               {displayText}
               <span className="animate-pulse text-pink-400">|</span>
@@ -86,13 +114,39 @@ const Hero: React.FC = () => {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <button className="group relative px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/50">
-            <span className="relative z-10">View Projects</span>
+          <button 
+            onClick={scrollToProjects}
+            disabled={isScrolling}
+            className={`group relative px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/50 disabled:opacity-70 disabled:cursor-not-allowed ${isScrolling && scrollTarget === 'projects' ? 'animate-pulse' : ''}`}
+          >
+            <span className="relative z-10 flex items-center gap-2">
+              {isScrolling && scrollTarget === 'projects' ? (
+                <>
+                  <Loader2 className="animate-spin" size={20} />
+                  Scrolling...
+                </>
+              ) : (
+                'View Projects'
+              )}
+            </span>
             <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 rounded-lg blur opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
           </button>
           
-          <button className="group relative px-8 py-3 border-2 border-cyan-400 rounded-lg font-semibold text-cyan-400 transition-all duration-300 hover:bg-cyan-400 hover:text-gray-900 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50">
-            Contact Me
+          <button 
+            onClick={scrollToContact}
+            disabled={isScrolling}
+            className={`group relative px-8 py-3 border-2 border-cyan-400 rounded-lg font-semibold text-cyan-400 transition-all duration-300 hover:bg-cyan-400 hover:text-gray-900 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50 disabled:opacity-70 disabled:cursor-not-allowed ${isScrolling && scrollTarget === 'contact' ? 'animate-pulse' : ''}`}
+          >
+            <span className="relative z-10 flex items-center gap-2">
+              {isScrolling && scrollTarget === 'contact' ? (
+                <>
+                  <Loader2 className="animate-spin" size={20} />
+                  Scrolling...
+                </>
+              ) : (
+                'Contact Me'
+              )}
+            </span>
           </button>
         </div>
 

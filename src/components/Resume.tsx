@@ -1,8 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { FileText, Maximize2, Download } from 'lucide-react';
+import { portfolioData } from '../data/portfolio';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const Resume: React.FC = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const resumeRef = useRef<HTMLDivElement>(null);
+
+  const downloadPDF = async () => {
+    if (!resumeRef.current) return;
+
+    try {
+      // Show loading state
+      const downloadBtn = document.querySelector('.download-btn') as HTMLElement;
+      if (downloadBtn) {
+        downloadBtn.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div> Generating PDF...';
+        downloadBtn.setAttribute('disabled', 'true');
+      }
+
+      // Convert the resume content to canvas
+      const canvas = await html2canvas(resumeRef.current, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#ffffff'
+      });
+
+      // Create PDF
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = pdfWidth;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      // Add image to PDF
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+
+      // Download the PDF
+      pdf.save('Kaushal_Kumar_Resume.pdf');
+
+      // Reset button state
+      if (downloadBtn) {
+        downloadBtn.innerHTML = '<Download size={20} /><span>Download PDF</span>';
+        downloadBtn.removeAttribute('disabled');
+      }
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      
+      // Reset button state on error
+      const downloadBtn = document.querySelector('.download-btn') as HTMLElement;
+      if (downloadBtn) {
+        downloadBtn.innerHTML = '<Download size={20} /><span>Download PDF</span>';
+        downloadBtn.removeAttribute('disabled');
+      }
+    }
+  };
 
   const resumeUrl = "https://drive.google.com/file/d/1example/preview"; // Replace with actual resume URL
 
@@ -52,83 +106,126 @@ const Resume: React.FC = () => {
             <div className="relative">
               <div className="border-2 border-cyan-400/30 rounded-lg overflow-hidden shadow-lg shadow-cyan-500/20">
                 {/* Mock Resume Content */}
-                <div className="bg-white text-gray-900 p-8 min-h-[600px]">
+                <div ref={resumeRef} className="bg-white text-gray-900 p-8 min-h-[600px]">
                   <div className="text-center mb-8">
-                    <h1 className="text-3xl font-bold mb-2">Kaushal Kumar</h1>
-                    <p className="text-lg text-gray-600">Full Stack Java Developer</p>
+                    <h1 className="text-3xl font-bold mb-2">KAUSHAL KUMAR</h1>
+                    <p className="text-lg text-gray-600">DevOps & CloudOps Engineer</p>
                     <div className="flex justify-center gap-4 mt-2 text-sm text-gray-600">
-                      <span>kaushal.kumar@example.com</span>
+                      <span>{portfolioData.contact.phone}</span>
                       <span>•</span>
-                      <span>linkedin.com/in/kaushalkumar</span>
+                      <span>{portfolioData.contact.email}</span>
                       <span>•</span>
-                      <span>github.com/kaushalkumar</span>
+                      <span>kaushal13x</span>
+                      <span>•</span>
+                      <span>linkedin.com/in/kaushal-kumar-5014a5300</span>
                     </div>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-8">
                     <div>
                       <h2 className="text-xl font-bold mb-4 text-purple-600 border-b-2 border-purple-600 pb-2">
-                        Technical Skills
+                        SUMMARY
                       </h2>
-                      <div className="space-y-3">
-                        <div>
-                          <h3 className="font-semibold mb-1">Backend</h3>
-                          <p className="text-sm text-gray-600">Java, Spring Boot, REST APIs, Microservices</p>
-                        </div>
-                        <div>
-                          <h3 className="font-semibold mb-1">Frontend</h3>
-                          <p className="text-sm text-gray-600">React, JavaScript, HTML5, CSS3, Tailwind</p>
-                        </div>
-                        <div>
-                          <h3 className="font-semibold mb-1">Database</h3>
-                          <p className="text-sm text-gray-600">MySQL, PostgreSQL, MongoDB</p>
-                        </div>
-                        <div>
-                          <h3 className="font-semibold mb-1">Tools</h3>
-                          <p className="text-sm text-gray-600">Git, Docker, Maven, Jenkins</p>
-                        </div>
-                      </div>
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        {portfolioData.about.bio}
+                      </p>
                     </div>
 
                     <div>
                       <h2 className="text-xl font-bold mb-4 text-purple-600 border-b-2 border-purple-600 pb-2">
-                        Experience
+                        TECHNICAL SKILL
                       </h2>
-                      <div className="space-y-4">
-                        <div>
-                          <h3 className="font-semibold">Full Stack Developer</h3>
-                          <p className="text-sm text-gray-600">Tech Innovators Inc. • 2023-Present</p>
-                          <ul className="text-sm text-gray-600 mt-2 space-y-1">
-                            <li>• Developed scalable web applications using Java Spring Boot</li>
-                            <li>• Built responsive frontends with React and modern CSS</li>
-                            <li>• Implemented RESTful APIs serving 10k+ daily requests</li>
-                          </ul>
-                        </div>
-                        <div>
-                          <h3 className="font-semibold">Software Developer Intern</h3>
-                          <p className="text-sm text-gray-600">StartupXYZ • 2022-2023</p>
-                          <ul className="text-sm text-gray-600 mt-2 space-y-1">
-                            <li>• Built REST APIs and database schemas</li>
-                            <li>• Implemented frontend components in React</li>
-                            <li>• Participated in code reviews and testing</li>
-                          </ul>
-                        </div>
+                      <div className="space-y-2">
+                        <p className="text-sm text-gray-600">Student of Creator Program of Linux World Informatics</p>
+                        <p className="text-sm text-gray-600">Python, Kubernetes, Docker, Jenkins, Git, Linux</p>
+                        <p className="text-sm text-gray-600">Amazon Web Services, AWS</p>
                       </div>
                     </div>
                   </div>
 
                   <div className="mt-8">
                     <h2 className="text-xl font-bold mb-4 text-purple-600 border-b-2 border-purple-600 pb-2">
-                      Education
+                      WORK EXPERIENCE
+                    </h2>
+                    <div className="space-y-4">
+                      {portfolioData.about.experience.map((exp, index) => (
+                        <div key={index}>
+                          <h3 className="font-semibold">{exp.company}</h3>
+                          <p className="text-sm text-gray-600">{exp.role} • {exp.duration}</p>
+                          <p className="text-sm text-gray-600">{exp.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-8">
+                    <h2 className="text-xl font-bold mb-4 text-purple-600 border-b-2 border-purple-600 pb-2">
+                      PROJECTS
+                    </h2>
+                    <div className="space-y-2">
+                      {portfolioData.projects.map((project, index) => (
+                        <div key={index} className="flex items-center gap-2">
+                          <span className="text-sm text-gray-600">•</span>
+                          <span className="text-sm text-gray-600">{project.title}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-8">
+                    <h2 className="text-xl font-bold mb-4 text-purple-600 border-b-2 border-purple-600 pb-2">
+                      EDUCATION
                     </h2>
                     <div>
-                      <h3 className="font-semibold">Bachelor of Technology in Computer Science</h3>
-                      <p className="text-sm text-gray-600">ABC University • 2020-2024</p>
-                      <p className="text-sm text-gray-600 mt-1">Relevant Coursework: Data Structures, Algorithms, Database Systems, Software Engineering</p>
+                      <h3 className="font-semibold">{portfolioData.about.education[0].institution}</h3>
+                      <p className="text-sm text-gray-600">{portfolioData.about.education[0].degree}</p>
+                      <p className="text-sm text-gray-600">{portfolioData.about.education[0].year}</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-8">
+                    <h2 className="text-xl font-bold mb-4 text-purple-600 border-b-2 border-purple-600 pb-2">
+                      ADDITIONAL INFORMATION
+                    </h2>
+                    <div className="space-y-2">
+                      <p className="text-sm text-gray-600">Technical Skills: {portfolioData.additionalInfo.technicalSkills.join(', ')}</p>
+                      <p className="text-sm text-gray-600">Languages: {portfolioData.additionalInfo.languages.join(', ')}</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-8">
+                    <h2 className="text-xl font-bold mb-4 text-purple-600 border-b-2 border-purple-600 pb-2">
+                      CERTIFICATIONS
+                    </h2>
+                    <div className="space-y-2">
+                      {portfolioData.certifications.map((cert, index) => (
+                        <div key={index} className="flex items-center gap-2">
+                          <span className="text-sm text-gray-600">•</span>
+                          <span className="text-sm text-gray-600">{cert}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+              <button
+                onClick={downloadPDF}
+                className="download-btn flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50"
+              >
+                <Download size={20} />
+                <span>Download PDF</span>
+              </button>
+              
+              <button
+                onClick={() => setIsFullscreen(true)}
+                className="flex items-center gap-2 px-6 py-3 border-2 border-cyan-400 rounded-lg font-semibold text-cyan-400 transition-all duration-300 hover:bg-cyan-400 hover:text-gray-900 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50"
+              >
+                <Maximize2 size={20} />
+                <span>View Fullscreen</span>
+              </button>
             </div>
           </div>
         </div>
@@ -140,27 +237,123 @@ const Resume: React.FC = () => {
           <div className="bg-white rounded-lg max-w-4xl w-full h-full max-h-[90vh] overflow-auto">
             <div className="p-4 border-b flex justify-between items-center">
               <h3 className="text-lg font-semibold">Resume - Kaushal Kumar</h3>
-              <button
-                onClick={() => setIsFullscreen(false)}
-                className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors duration-300"
-              >
-                Close
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={downloadPDF}
+                  className="download-btn-modal flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white rounded-lg font-semibold transition-all duration-300 hover:scale-105"
+                >
+                  <Download size={16} />
+                  <span>Download PDF</span>
+                </button>
+                <button
+                  onClick={() => setIsFullscreen(false)}
+                  className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors duration-300"
+                >
+                  Close
+                </button>
+              </div>
             </div>
             <div className="p-8">
               {/* Same resume content as above */}
               <div className="text-center mb-8">
-                <h1 className="text-3xl font-bold mb-2">Kaushal Kumar</h1>
-                <p className="text-lg text-gray-600">Full Stack Java Developer</p>
+                <h1 className="text-3xl font-bold mb-2">KAUSHAL KUMAR</h1>
+                <p className="text-lg text-gray-600">DevOps & CloudOps Engineer</p>
                 <div className="flex justify-center gap-4 mt-2 text-sm text-gray-600">
-                  <span>kaushal.kumar@example.com</span>
+                  <span>{portfolioData.contact.phone}</span>
                   <span>•</span>
-                  <span>linkedin.com/in/kaushalkumar</span>
+                  <span>{portfolioData.contact.email}</span>
                   <span>•</span>
-                  <span>github.com/kaushalkumar</span>
+                  <span>kaushal13x</span>
+                  <span>•</span>
+                  <span>linkedin.com/in/kaushal-kumar-5014a5300</span>
                 </div>
               </div>
-              {/* Rest of resume content */}
+              
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h2 className="text-xl font-bold mb-4 text-purple-600 border-b-2 border-purple-600 pb-2">
+                    SUMMARY
+                  </h2>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    {portfolioData.about.bio}
+                  </p>
+                </div>
+
+                <div>
+                  <h2 className="text-xl font-bold mb-4 text-purple-600 border-b-2 border-purple-600 pb-2">
+                    TECHNICAL SKILL
+                  </h2>
+                  <div className="space-y-2">
+                    <p className="text-sm text-gray-600">Student of Creator Program of Linux World Informatics</p>
+                    <p className="text-sm text-gray-600">Python, Kubernetes, Docker, Jenkins, Git, Linux</p>
+                    <p className="text-sm text-gray-600">Amazon Web Services, AWS</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <h2 className="text-xl font-bold mb-4 text-purple-600 border-b-2 border-purple-600 pb-2">
+                  WORK EXPERIENCE
+                </h2>
+                <div className="space-y-4">
+                  {portfolioData.about.experience.map((exp, index) => (
+                    <div key={index}>
+                      <h3 className="font-semibold">{exp.company}</h3>
+                      <p className="text-sm text-gray-600">{exp.role} • {exp.duration}</p>
+                      <p className="text-sm text-gray-600">{exp.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <h2 className="text-xl font-bold mb-4 text-purple-600 border-b-2 border-purple-600 pb-2">
+                  PROJECTS
+                </h2>
+                <div className="space-y-2">
+                  {portfolioData.projects.map((project, index) => (
+                    <div key={index} className="flex items-center gap-2">
+                      <span className="text-sm text-gray-600">•</span>
+                      <span className="text-sm text-gray-600">{project.title}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <h2 className="text-xl font-bold mb-4 text-purple-600 border-b-2 border-purple-600 pb-2">
+                  EDUCATION
+                </h2>
+                <div>
+                  <h3 className="font-semibold">{portfolioData.about.education[0].institution}</h3>
+                  <p className="text-sm text-gray-600">{portfolioData.about.education[0].degree}</p>
+                  <p className="text-sm text-gray-600">{portfolioData.about.education[0].year}</p>
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <h2 className="text-xl font-bold mb-4 text-purple-600 border-b-2 border-purple-600 pb-2">
+                  ADDITIONAL INFORMATION
+                </h2>
+                <div className="space-y-2">
+                  <p className="text-sm text-gray-600">Technical Skills: {portfolioData.additionalInfo.technicalSkills.join(', ')}</p>
+                  <p className="text-sm text-gray-600">Languages: {portfolioData.additionalInfo.languages.join(', ')}</p>
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <h2 className="text-xl font-bold mb-4 text-purple-600 border-b-2 border-purple-600 pb-2">
+                  CERTIFICATIONS
+                </h2>
+                <div className="space-y-2">
+                  {portfolioData.certifications.map((cert, index) => (
+                    <div key={index} className="flex items-center gap-2">
+                      <span className="text-sm text-gray-600">•</span>
+                      <span className="text-sm text-gray-600">{cert}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>

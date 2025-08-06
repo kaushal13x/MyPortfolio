@@ -47,7 +47,7 @@ const Footer: React.FC = () => {
               
               <div className="flex items-center gap-4">
                 <span className="text-gray-400 text-sm">
-                  Full Stack Java Developer
+                  DevOps & CloudOps Engineer
                 </span>
                 
                 <button
