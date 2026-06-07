@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
+import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Blog from './components/Blog';
 import Contact from './components/Contact';
@@ -10,6 +11,8 @@ import Footer from './components/Footer';
 
 function App() {
   const [isScanning, setIsScanning] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   useEffect(() => {
     // Smooth scrolling for anchor links
@@ -39,8 +42,66 @@ function App() {
     return () => window.removeEventListener('nav-transition-start', handleTransition);
   }, []);
 
+  // Track scroll position for progress bar and back to top button
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalScroll > 0) {
+        const progress = (window.scrollY / totalScroll) * 100;
+        setScrollProgress(progress);
+      }
+      
+      if (window.scrollY > 400) {
+        setShowBackToTop(true);
+      } else {
+        setShowBackToTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Global scroll revealIntersectionObserver
+  useEffect(() => {
+    const revealCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-active');
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(revealCallback, {
+      root: null,
+      threshold: 0.05,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    const revealElements = document.querySelectorAll('.reveal-on-scroll');
+    revealElements.forEach((el) => observer.observe(el));
+
+    const interval = setInterval(() => {
+      const currentElements = document.querySelectorAll('.reveal-on-scroll:not(.reveal-active)');
+      currentElements.forEach((el) => observer.observe(el));
+    }, 800);
+
+    return () => {
+      observer.disconnect();
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-900 text-white relative">
+      {/* Glowing Scroll Progress Bar */}
+      <div className="scroll-progress-container">
+        <div 
+          className="scroll-progress-bar" 
+          style={{ width: `${scrollProgress}%` }}
+        ></div>
+      </div>
+
       <Navbar />
       
       {/* Futuristic Cyber Scanner Overlay */}
@@ -60,11 +121,31 @@ function App() {
       
       <Hero />
       <About />
+      <Skills />
       <Projects />
       <Blog />
       <Contact />
       <Resume />
       <Footer />
+
+      {/* Floating Back to Top Button */}
+      {showBackToTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-6 right-6 z-40 p-3.5 rounded-full bg-[#1A1D24]/95 backdrop-blur-md border border-[#E76F3C] text-[#E76F3C] hover:bg-[#E76F3C] hover:text-white hover:scale-110 hover:shadow-[0_0_15px_rgba(231,111,60,0.5)] transition-all duration-300 shadow-lg shadow-black/50 group"
+          title="Scroll to top"
+        >
+          <svg 
+            className="w-5 h-5 transform group-hover:-translate-y-0.5 transition-transform duration-300" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="3" 
+            viewBox="0 0 24 24"
+          >
+            <polyline points="18 15 12 9 6 15" />
+          </svg>
+        </button>
+      )}
     </div>
   );
 }

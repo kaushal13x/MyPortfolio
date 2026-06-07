@@ -36,7 +36,7 @@ const Blog: React.FC = () => {
 
       <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
         {/* Header Block with top-left profile icon */}
-        <div className="flex flex-col items-center justify-center text-center mb-16 relative">
+        <div className="flex flex-col items-center justify-center text-center mb-16 relative reveal-on-scroll">
           {/* Circular avatar in upper left of header container */}
           <div className="absolute left-0 top-0 hidden md:block">
             <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#E76F3C] p-0.5 shadow-[0_0_15px_rgba(231,111,60,0.4)] hover:scale-110 transition-transform duration-300">
@@ -58,11 +58,13 @@ const Blog: React.FC = () => {
 
         {/* Blog Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogs.map((blog) => (
-            <div
-              key={blog.id}
-              className="group relative bg-[#23262F]/80 backdrop-blur-md rounded-2xl p-6 border border-[#2D323C] hover:border-[#E76F3C]/40 hover:shadow-[0_0_24px_rgba(231,111,60,0.15)] transition-all duration-300 flex flex-col justify-between hover:scale-[1.03]"
-            >
+          {blogs.map((blog, index) => {
+            const staggerNum = (index % 3) + 1;
+            return (
+              <div
+                key={blog.id}
+                className={`group relative bg-[#23262F]/80 backdrop-blur-md rounded-2xl p-6 border border-[#2D323C] hover:border-[#E76F3C]/40 hover:shadow-[0_0_24px_rgba(231,111,60,0.15)] transition-all duration-300 flex flex-col justify-between hover:scale-[1.03] reveal-on-scroll stagger-${staggerNum}`}
+              >
               {/* Outer starry glow on card hover */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#E76F3C]/5 to-[#F0B45A]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
 
@@ -111,7 +113,8 @@ const Blog: React.FC = () => {
                 </a>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

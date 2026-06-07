@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon } from 'lucide-react';
+import { Sun, Moon, Menu, X } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const [activeItem, setActiveItem] = useState('Home');
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
     { label: 'Home', target: '#home' },
     { label: 'About', target: '#about' },
     { label: 'Key Highlights', target: '#about' }, // scrolls to experience/timeline inside About
     { label: 'Internship', target: '#about' }, // scrolls to experience timeline
+    { label: 'Skills', target: '#skills' },
     { label: 'Projects', target: '#projects' },
     { label: 'Blog', target: '#blog' },
     { label: 'Contact', target: '#contact' },
@@ -132,7 +134,7 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Action Button & Theme Toggle */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <button
             onClick={() => setIsDarkMode(!isDarkMode)}
             className="p-2.5 rounded-full border border-[#2D323C] text-[#F0B45A] hover:text-white hover:bg-[#23262F]/50 transition-all duration-300"
@@ -140,8 +142,43 @@ const Navbar: React.FC = () => {
           >
             {isDarkMode ? <Sun size={18} className="animate-pulse" /> : <Moon size={18} />}
           </button>
+
+          {/* Hamburger Menu Toggle (Mobile) */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="lg:hidden p-2.5 rounded-full border border-[#2D323C] text-[#E76F3C] hover:text-white hover:bg-[#23262F]/50 transition-all duration-300"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu Drawer Overlay */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 top-[80px] z-45 bg-[#0F1115]/98 backdrop-blur-lg border-t border-[#2D323C] lg:hidden animate-fade-in overflow-y-auto max-h-[calc(100vh-80px)]">
+          <div className="flex flex-col p-6 space-y-3">
+            {navItems.map((item, index) => (
+              <a
+                key={item.label}
+                href={item.target}
+                onClick={(e) => {
+                  handleNavClick(e, item.label, item.target);
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`w-full py-3 px-5 rounded-xl border border-transparent text-sm font-semibold tracking-wide transition-all duration-300 flex items-center justify-between ${
+                  activeItem === item.label
+                    ? 'bg-gradient-to-r from-[#A64B2A]/20 to-[#E76F3C]/20 border-[#E76F3C]/40 text-[#E76F3C] shadow-lg shadow-[#A64B2A]/5'
+                    : 'text-gray-300 hover:text-white hover:bg-[#1A1D24]/50 hover:border-[#2D323C]'
+                }`}
+              >
+                <span>{item.label}</span>
+                <span className="text-[9px] text-[#A0A0A0] font-mono">0{index + 1}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

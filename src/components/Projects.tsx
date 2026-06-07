@@ -35,7 +35,7 @@ const Projects: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-[#A64B2A]/10 to-[#F0B45A]/10"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className={`text-center mb-10 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="text-center mb-10 reveal-on-scroll">
           {hasMinorProjects && (
             <div className="inline-flex rounded-lg overflow-hidden shadow-lg mb-8 border border-[#2D323C]">
               <button
@@ -58,12 +58,14 @@ const Projects: React.FC = () => {
           <div className="w-24 h-1 bg-gradient-to-r from-[#E76F3C] to-[#F0B45A] mx-auto rounded-full"></div>
         </div>
 
-        <div className={`grid lg:grid-cols-2 xl:grid-cols-3 gap-8 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          {projectsToShow.map((project) => (
-            <div 
-              key={project.id}
-              className="group relative bg-[#23262F]/50 backdrop-blur-sm rounded-lg overflow-hidden border border-[#2D323C] hover:border-[#E76F3C] transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#E76F3C]/10"
-            >
+        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
+          {projectsToShow.map((project, index) => {
+            const staggerNum = (index % 3) + 1;
+            return (
+              <div 
+                key={project.id}
+                className={`group relative bg-[#23262F]/50 backdrop-blur-sm rounded-lg overflow-hidden border border-[#2D323C] hover:border-[#E76F3C] transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#E76F3C]/10 reveal-on-scroll stagger-${staggerNum}`}
+              >
               {/* Glow Effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#E76F3C]/5 to-[#F0B45A]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               
@@ -142,7 +144,8 @@ const Projects: React.FC = () => {
                 </div>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Call to Action */}

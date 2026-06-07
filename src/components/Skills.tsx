@@ -47,12 +47,12 @@ const Skills: React.FC = () => {
 
 
   return (
-    <section className="py-20 bg-[#0F1115] relative overflow-hidden">
+    <section id="skills" className="py-20 bg-[#0F1115] relative overflow-hidden">
       {/* Background Effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#A64B2A]/10 to-[#F0B45A]/10"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 reveal-on-scroll">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 font-orbitron bg-gradient-to-r from-[#E76F3C] to-[#F0B45A] bg-clip-text text-transparent">
             Technical Skills
           </h2>
@@ -60,11 +60,13 @@ const Skills: React.FC = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {portfolioData.skills.map((skill, index) => (
-            <div 
-              key={index} 
-              className="group relative bg-[#23262F]/50 backdrop-blur-sm rounded-lg p-6 border border-[#2D323C] hover:border-[#E76F3C] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#E76F3C]/10"
-            >
+          {portfolioData.skills.map((skill, index) => {
+            const staggerNum = (index % 4) + 1; // grid has 4 cols on xl screens
+            return (
+              <div 
+                key={index} 
+                className={`group relative bg-[#23262F]/50 backdrop-blur-sm rounded-lg p-6 border border-[#2D323C] hover:border-[#E76F3C] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#E76F3C]/10 reveal-on-scroll stagger-${staggerNum}`}
+              >
               {/* Glow Effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#E76F3C]/5 to-[#F0B45A]/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               
@@ -102,7 +104,8 @@ const Skills: React.FC = () => {
                 </div>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
