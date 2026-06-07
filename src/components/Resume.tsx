@@ -8,6 +8,8 @@ const Resume: React.FC = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const resumeRef = useRef<HTMLDivElement>(null);
   const modalResumeRef = useRef<HTMLDivElement>(null);
+  const [selectedCert, setSelectedCert] = useState<any>(null);
+  const [activeCertTab, setActiveCertTab] = useState<string>('All');
 
   const generatePDF = async (element: HTMLDivElement | null, filename: string) => {
     if (!element) return;
@@ -188,9 +190,18 @@ const Resume: React.FC = () => {
           <h2 className="text-base font-bold uppercase tracking-wider text-[#A64B2A] mb-2 font-serif">
             Certifications
           </h2>
-          <ul className="list-disc pl-5 space-y-1 text-xs text-gray-600">
-            {portfolioData.certifications.map((cert, index) => (
-              <li key={index}>{cert}</li>
+          <ul className="list-disc pl-5 space-y-1 text-xs text-gray-650">
+            {portfolioData.certifications.filter((c: any) => 
+              c.name.includes("IBM") || 
+              c.name.includes("Lavanta Naturals DevOps") || 
+              c.name.includes("SkillCraft Cyber Security") || 
+              c.name.includes("Linuxworld AI") ||
+              c.name.includes("Python")
+            ).slice(0, 5).map((cert: any, index: number) => (
+              <li key={index}>
+                <span className="font-semibold text-gray-700">{cert.name}</span>
+                <span className="text-[9px] text-[#E76F3C] ml-1 font-mono uppercase">({cert.type.split(' ')[0]})</span>
+              </li>
             ))}
           </ul>
         </div>
@@ -281,7 +292,121 @@ const Resume: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Interactive Certifications Vault */}
+        <div className="max-w-4xl mx-auto mt-12 reveal-on-scroll">
+          <div className="bg-[#23262F]/50 backdrop-blur-sm rounded-lg p-6 md:p-8 border border-[#2D323C]">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-[#2D323C] pb-6 mb-6">
+              <div>
+                <h3 className="text-2xl font-bold text-white flex items-center gap-2 font-orbitron">
+                  <svg className="w-6 h-6 text-[#E76F3C]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                  </svg>
+                  Documents & Certifications Vault
+                </h3>
+                <p className="text-gray-400 text-sm mt-1">Explore all my verification documents, completion certificates, and career offer letters.</p>
+              </div>
+            </div>
+
+            {/* Tabs Selector */}
+            <div className="flex flex-wrap gap-2 mb-6 border-b border-[#2D323C]/50 pb-4">
+              {['All', 'Internship Completion', 'Course Completion', 'Offer Letter', 'Recommendation Letter'].map((tab) => {
+                const count = tab === 'All' 
+                  ? portfolioData.certifications.length 
+                  : portfolioData.certifications.filter((c: any) => c.type === tab).length;
+                return (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveCertTab(tab)}
+                    className={`px-4 py-2 rounded-lg text-xs font-bold transition-all duration-305 ${
+                      activeCertTab === tab
+                        ? 'bg-gradient-to-r from-[#A64B2A] to-[#E76F3C] text-white shadow-md'
+                        : 'bg-[#1A1D24] text-gray-400 hover:text-white border border-[#2D323C]'
+                    }`}
+                  >
+                    {tab === 'All' ? '📁 All' : tab} ({count})
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Grid of Certificates */}
+            <div className="grid md:grid-cols-2 gap-4">
+              {portfolioData.certifications
+                .filter((c: any) => activeCertTab === 'All' || c.type === activeCertTab)
+                .map((cert: any, index: number) => (
+                  <div 
+                    key={index} 
+                    className="p-4 bg-[#1A1D24]/80 rounded-lg border border-[#2D323C] hover:border-[#E76F3C]/50 transition-all duration-300 flex items-center justify-between group"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-[#23262F] flex items-center justify-center text-[#E76F3C] group-hover:bg-[#E76F3C] group-hover:text-white transition-colors duration-300">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                          <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                      </div>
+                      <div className="text-left max-w-[150px] sm:max-w-[200px] md:max-w-[240px]">
+                        <h4 className="text-xs font-semibold text-white group-hover:text-[#E76F3C] transition-colors duration-300 truncate">{cert.name}</h4>
+                        <span className="text-[9px] text-[#F0B45A] font-mono uppercase tracking-wider">{cert.type}</span>
+                      </div>
+                    </div>
+                    
+                    <button
+                      onClick={() => setSelectedCert(cert)}
+                      className="px-3.5 py-1.5 bg-[#23262F] hover:bg-[#E76F3C] text-white text-xs font-bold rounded-md border border-[#2D323C] hover:border-transparent transition-all duration-300 flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                      <span>View</span>
+                    </button>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </div>
       </div>
+
+      {/* PDF Viewer Modal */}
+      {selectedCert && (
+        <div className="fixed inset-0 bg-black/95 z-[9999] flex flex-col items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-[#1A1D24] border border-[#E76F3C] w-full max-w-5xl h-[85vh] rounded-xl flex flex-col overflow-hidden shadow-2xl">
+            <div className="p-4 border-b border-[#2D323C] flex justify-between items-center bg-[#0F1115] text-white">
+              <div className="text-left">
+                <span className="text-[9px] text-[#E76F3C] font-mono tracking-wider uppercase font-semibold">{selectedCert.type}</span>
+                <h4 className="text-sm md:text-base font-bold text-white leading-snug">{selectedCert.name}</h4>
+              </div>
+              <button
+                onClick={() => setSelectedCert(null)}
+                className="px-4 py-2 bg-[#23262F] hover:bg-red-600 rounded-lg text-white font-bold transition-all duration-300 cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+            <div className="flex-1 bg-slate-900 relative">
+              <object
+                data={selectedCert.file}
+                type="application/pdf"
+                className="w-full h-full"
+              >
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center text-white bg-slate-950/90">
+                  <p className="mb-4 text-gray-400 text-sm">PDF viewer is not supported directly by your browser or mobile device.</p>
+                  <a
+                    href={selectedCert.file}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 bg-[#E76F3C] hover:bg-[#FF8C42] text-white rounded-lg font-bold transition-all duration-300"
+                  >
+                    Open & Download PDF
+                  </a>
+                </div>
+              </object>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Fullscreen Modal */}
       {isFullscreen && (

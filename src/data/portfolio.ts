@@ -130,11 +130,90 @@ export const portfolioData = {
     discord: "https://discord.com/users/1262810937577050195"
   },
   certifications: [
-    "IBM Cloud Computing Virtual Internship Completion",
-    "Linux World AI & Cloud Training Certification",
-    "Cyber Security Internship Completion",
-    "Python Programming Certification",
-    "C Programming Course Certification"
+    // Internship Completion
+    {
+      name: "IBM Cloud Computing Virtual Internship Completion",
+      file: "/certificates/IBMCEP PBELCC221IN Certificate _ IBMMooc.pdf",
+      type: "Internship Completion"
+    },
+    {
+      name: "Lavanta Naturals DevOps Internship Completion",
+      file: "/certificates/lavanta Internship Certificate_Kaushal.pdf",
+      type: "Internship Completion"
+    },
+    {
+      name: "SkillCraft Cyber Security Internship Completion",
+      file: "/certificates/SkillCraft Certificate.pdf",
+      type: "Internship Completion"
+    },
+    {
+      name: "Linuxworld AI & Cloud Training Certificate",
+      file: "/certificates/Training Certificate.pdf",
+      type: "Internship Completion"
+    },
+    // Course Completion
+    {
+      name: "Python Programming Certification (Coursera)",
+      file: "/certificates/Python-Coursera.pdf",
+      type: "Course Completion"
+    },
+    {
+      name: "C Programming Course Certification (Coursera)",
+      file: "/certificates/Coursera C .pdf",
+      type: "Course Completion"
+    },
+    {
+      name: "Machine Learning Certification (Coursera)",
+      file: "/certificates/ML Coursera.pdf",
+      type: "Course Completion"
+    },
+    {
+      name: "Data Science Certification",
+      file: "/certificates/coursevData Science .pdf",
+      type: "Course Completion"
+    },
+    {
+      name: "IBM Design Thinking Course Certification",
+      file: "/certificates/course -IBMDesign20251127-30-8n05w5.pdf",
+      type: "Course Completion"
+    },
+    {
+      name: "Nasscom Course Certification",
+      file: "/certificates/Nasscom Course.pdf",
+      type: "Course Completion"
+    },
+    // Offer Letters
+    {
+      name: "Cyfuture India Offer Letter",
+      file: "/certificates/Offer-letter CyFuture.pdf",
+      type: "Offer Letter"
+    },
+    {
+      name: "Lavanta Naturals Offer Letter",
+      file: "/certificates/Offer-letter LavantaNaturals Kaushal kumar .pdf",
+      type: "Offer Letter"
+    },
+    {
+      name: "SkillCraft Technology Offer Letter",
+      file: "/certificates/Offer-letter SkillCraft.pdf",
+      type: "Offer Letter"
+    },
+    {
+      name: "Linuxworld Informatics Offer Letter",
+      file: "/certificates/Lw Offer letter October.pdf",
+      type: "Offer Letter"
+    },
+    {
+      name: "CodeAlpha Offer Letter",
+      file: "/certificates/Offer LetterCodeAlpha.pdf",
+      type: "Offer Letter"
+    },
+    // Recommendation Letter
+    {
+      name: "VGU Academic Recommendation Letter",
+      file: "/certificates/VGU_Recommendation_Letter_KaushalKumar.pdf",
+      type: "Recommendation Letter"
+    }
   ],
   additionalInfo: {
     softSkills: ["Leadership", "Team Collaboration", "Problem Solving"],
