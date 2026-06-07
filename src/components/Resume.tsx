@@ -389,14 +389,14 @@ const Resume: React.FC = () => {
             </div>
             <div className="flex-1 bg-slate-900 relative">
               <object
-                data={selectedCert.file}
+                data={encodeURI(selectedCert.file)}
                 type="application/pdf"
                 className="w-full h-full"
               >
                 <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center text-white bg-slate-950/90">
                   <p className="mb-4 text-gray-400 text-sm">PDF viewer is not supported directly by your browser or mobile device.</p>
                   <a
-                    href={selectedCert.file}
+                    href={encodeURI(selectedCert.file)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-6 py-3 bg-[#E76F3C] hover:bg-[#FF8C42] text-white rounded-lg font-bold transition-all duration-300"
