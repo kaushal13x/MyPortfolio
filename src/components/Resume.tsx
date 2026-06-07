@@ -192,11 +192,13 @@ const Resume: React.FC = () => {
           </h2>
           <ul className="list-disc pl-5 space-y-1 text-xs text-gray-650">
             {portfolioData.certifications.filter((c: any) => 
-              c.name.includes("IBM") || 
-              c.name.includes("Lavanta Naturals DevOps") || 
-              c.name.includes("SkillCraft Cyber Security") || 
-              c.name.includes("Linuxworld AI") ||
-              c.name.includes("Python")
+              c && typeof c === 'object' && c.name && (
+                c.name.includes("IBM") || 
+                c.name.includes("Lavanta Naturals DevOps") || 
+                c.name.includes("SkillCraft Cyber Security") || 
+                c.name.includes("Linuxworld AI") ||
+                c.name.includes("Python")
+              )
             ).slice(0, 5).map((cert: any, index: number) => (
               <li key={index}>
                 <span className="font-semibold text-gray-700">{cert.name}</span>
@@ -313,8 +315,8 @@ const Resume: React.FC = () => {
             <div className="flex flex-wrap gap-2 mb-6 border-b border-[#2D323C]/50 pb-4">
               {['All', 'Internship Completion', 'Course Completion', 'Offer Letter', 'Recommendation Letter'].map((tab) => {
                 const count = tab === 'All' 
-                  ? portfolioData.certifications.length 
-                  : portfolioData.certifications.filter((c: any) => c.type === tab).length;
+                  ? portfolioData.certifications.filter((c: any) => c && typeof c === 'object').length 
+                  : portfolioData.certifications.filter((c: any) => c && typeof c === 'object' && c.type === tab).length;
                 return (
                   <button
                     key={tab}
@@ -334,7 +336,7 @@ const Resume: React.FC = () => {
             {/* Grid of Certificates */}
             <div className="grid md:grid-cols-2 gap-4">
               {portfolioData.certifications
-                .filter((c: any) => activeCertTab === 'All' || c.type === activeCertTab)
+                .filter((c: any) => c && typeof c === 'object' && c.name && (activeCertTab === 'All' || c.type === activeCertTab))
                 .map((cert: any, index: number) => (
                   <div 
                     key={index} 
