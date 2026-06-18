@@ -1,8 +1,9 @@
 import React from 'react';
 import { Code, Wrench, Cloud, Box, RefreshCw, Cpu, Terminal, Layers } from 'lucide-react';
-import { portfolioData } from '../data/portfolio';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const Skills: React.FC = () => {
+  const { data: portfolioData } = usePortfolio();
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case 'Cloud Platforms':
@@ -65,7 +66,7 @@ const Skills: React.FC = () => {
             return (
               <div 
                 key={index} 
-                className={`group relative bg-[#23262F]/50 backdrop-blur-sm rounded-lg p-6 border border-[#2D323C] hover:border-[#E76F3C] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#E76F3C]/10 reveal-on-scroll stagger-${staggerNum}`}
+                className={`group relative bg-[#23262F]/50 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-[#2D323C] hover:border-[#E76F3C] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#E76F3C]/10 reveal-on-scroll stagger-${staggerNum}`}
               >
               {/* Glow Effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#E76F3C]/5 to-[#F0B45A]/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

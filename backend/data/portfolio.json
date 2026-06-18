@@ -1,0 +1,266 @@
+{
+  "hero": {
+    "name": "Kaushal Kumar",
+    "title": "DevOps Enthusiast | CI/CD | Kubernetes | AWS",
+    "subtitle": "DevOps Enthusiast",
+    "roles": [
+      "DevOps Enthusiast",
+      "CI/CD Engineer",
+      "Kubernetes & Docker Specialist",
+      "AWS Cloud Builder"
+    ],
+    "description": "Crafting fully automated pipelines, robust container orchestration environments, and highly reliable AWS architectures to maximize uptime and minimize delivery bottlenecks."
+  },
+  "about": {
+    "bio": "DevOps enthusiast with hands-on experience in building CI/CD pipelines, container orchestration using Kubernetes, and provisioning scalable AWS infrastructure with Terraform. Proven ability to reduce deployment time by 80% and improve system reliability through automation and cloud-native practices.",
+    "education": [
+      {
+        "degree": "Bachelor of Technology in Computer Science Engineering",
+        "field": "Computer Science Engineering",
+        "year": "2023 - 2027",
+        "institution": "Vivekananda Global University, Jaipur",
+        "cgpa": "7.45"
+      },
+      {
+        "degree": "Intermediate (Science)",
+        "field": "Science",
+        "year": "2019 - 2021",
+        "institution": "M.P College, Mohania, Kaimur",
+        "board": "BSEB"
+      },
+      {
+        "degree": "Secondary School Education",
+        "field": "General Studies",
+        "year": "2017 - 2019",
+        "institution": "High School Bhagwanpur, Kaimur",
+        "board": "BSEB | First Division"
+      }
+    ],
+    "experience": [
+      {
+        "role": "CCE (Customer Care Executive)",
+        "company": "Cyfuture Private Limited",
+        "duration": "May 2026 - Present",
+        "description": "Customer Care Executive (CCE) at Cyfuture India Pvt. Ltd., focused on effective communication, handling customer queries, and delivering prompt support. Strengthened interpersonal skills, active listening, and problem-solving in a fast-paced environment."
+      },
+      {
+        "role": "DevOps Engineer (Intern)",
+        "company": "Lavanta Naturals Private Limited",
+        "duration": "Jan 2026 - Present",
+        "description": "Assisted in setting up and managing CI/CD pipelines to automate build and deployment processes. Worked with Git, Docker, and Linux-based environments for application deployment and version control. Supported server configuration, monitoring, and troubleshooting to ensure system reliability. Collaborated with development team to optimize deployment workflows and reduce manual errors. Contributed to infrastructure documentation and environment setup for scalable application management."
+      },
+      {
+        "role": "Cloud Computing Virtual Intern",
+        "company": "IBM Skills Network",
+        "duration": "Feb 2026 - Mar 2026",
+        "description": "Completed virtual internship in Cloud Computing via IBM Skills Network. Learned cloud deployment models (IaaS, PaaS, SaaS) and infrastructure basics. Gained exposure to AWS services and cloud architecture fundamentals."
+      },
+      {
+        "role": "Technical Support & Executive",
+        "company": "Linuxworld Informatics Pvt. Ltd.",
+        "duration": "Nov 2025 - Feb 2026",
+        "description": "Supported Linux, Cloud, and DevOps training operations. Troubleshot technical issues and assisted learners. Worked with Docker, Kubernetes, AWS, and Linux systems. Contributed to deployment and cloud setup tasks."
+      },
+      {
+        "role": "Research-Based AI & Cloud Intern (Training Program)",
+        "company": "Linuxworld Informatics Pvt. Ltd.",
+        "duration": "June 2025 - August 2025",
+        "description": "Built an Agentic AI platform using LLMs for task automation and decision-making. Worked with Docker, Kubernetes, Jenkins, and cloud-based workflows. Implemented CI/CD, containerization, and automation practices. Developed applications using Python and REST APIs."
+      },
+      {
+        "role": "Cyber Security Intern",
+        "company": "SkillCraft Technology",
+        "duration": "Feb 2025 - Mar 2025",
+        "description": "Understood security practices in cloud and deployment environments. Focused deeply on computer network protocols and vulnerability scanning."
+      }
+    ]
+  },
+  "skills": [
+    { "name": "AWS (EC2, S3, IAM, VPC, Lambda)", "level": 88, "category": "Cloud Platforms" },
+    { "name": "Docker", "level": 90, "category": "Containerization" },
+    { "name": "Kubernetes", "level": 85, "category": "Containerization" },
+    { "name": "Jenkins", "level": 85, "category": "CI/CD Tools" },
+    { "name": "GitHub Actions", "level": 90, "category": "CI/CD Tools" },
+    { "name": "AWS CloudFormation", "level": 80, "category": "Infrastructure as Code" },
+    { "name": "Terraform", "level": 85, "category": "Infrastructure as Code" },
+    { "name": "Python", "level": 88, "category": "Scripting" },
+    { "name": "Linux (RHEL)", "level": 90, "category": "Operating Systems" },
+    { "name": "Windows", "level": 85, "category": "Operating Systems" },
+    { "name": "CI/CD Pipelines", "level": 92, "category": "Core Concepts" },
+    { "name": "Cloud Architecture", "level": 86, "category": "Core Concepts" },
+    { "name": "OOPs", "level": 82, "category": "Core Concepts" }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "End-to-End CI/CD Pipeline Deployment",
+      "description": "Designed and implemented a fully automated CI/CD pipeline using GitHub Actions and Docker, enabling seamless build, test, and deployment workflows. Deployed static applications on AWS S3 with CloudFront integration, achieving automatic sync on every commit and reducing deployment time from hours to seconds.",
+      "details": [
+        "Designed and implemented a fully automated CI/CD pipeline using GitHub Actions and Docker, enabling seamless build, test, and deployment workflows.",
+        "Deployed static applications on AWS S3 with CloudFront integration, achieving automatic sync on every commit and reducing deployment time from hours to seconds.",
+        "Achieved 90% deployment reliability through parallel job execution and failure handling strategies."
+      ],
+      "technologies": ["Docker", "Git", "GitHub Actions", "AWS S3", "CloudFront", "Linux"],
+      "image": "https://images.unsplash.com/photo-1618401471353-b98aedd07871?auto=compress&cs=tinysrgb&w=500",
+      "github": "https://github.com/kaushal13x",
+      "demo": "https://www.linkedin.com/posts/kaushal-kumar-5014a5300_post037-docker-jenkins-activity-7351973322512891906-JTgK"
+    },
+    {
+      "id": 2,
+      "title": "E-Commerce Website For - Floveera Private Limited",
+      "description": "Containerized and deployed a microservices-based e-commerce application using Docker and Kubernetes for scalable orchestration. Configured NGINX as a reverse proxy, built automation pipelines, and implemented load balancing and auto-scaling.",
+      "details": [
+        "Containerized and deployed a microservices-based e-commerce application using Docker and Kubernetes for scalable orchestration.",
+        "Built an automated CI/CD pipeline using GitHub Actions for seamless build and deployment to K8s clusters.",
+        "Configured NGINX as a reverse proxy and implemented load balancing and auto-scaling to ensure high availability."
+      ],
+      "technologies": ["Next.js", "Node.js", "Express", "Supabase", "Firebase", "Netlify", "Docker", "Kubernetes", "NGINX"],
+      "image": "https://images.unsplash.com/photo-1557821552-17105176677c?auto=compress&cs=tinysrgb&w=500",
+      "github": "https://github.com/kaushal13x",
+      "demo": "https://www.linkedin.com/posts/kaushal-kumar-5014a5300_post042-microservicesarchitecture-microservices-activity-7353118411356270593-S5hA"
+    }
+  ],
+  "contact": {
+    "email": "kumarkaushalranjh@gmail.com",
+    "phone": "916200629005",
+    "linkedin": "https://www.linkedin.com/in/kaushal-kumar-5014a5300?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+    "github": "https://github.com/kaushal13x",
+    "instagram": "https://www.instagram.com/kumar_kaushal_ranjh?igsh=MW01ejhpc2x1ZTZvbw==",
+    "twitter": "https://x.com/KumarR28652?t=lKlCfRFLLvAbw0b___qLew&s=09",
+    "discord": "https://discord.com/users/1262810937577050195"
+  },
+  "certifications": [
+    {
+      "name": "IBM Cloud Computing Virtual Internship Completion",
+      "file": "/certificates/IBMCEP PBELCC221IN Certificate _ IBMMooc.pdf",
+      "type": "Internship Completion"
+    },
+    {
+      "name": "Lavanta Naturals DevOps Internship Completion",
+      "file": "/certificates/lavanta Internship Certificate_Kaushal.pdf",
+      "type": "Internship Completion"
+    },
+    {
+      "name": "SkillCraft Cyber Security Internship Completion",
+      "file": "/certificates/SkillCraft Certificate.pdf",
+      "type": "Internship Completion"
+    },
+    {
+      "name": "Linuxworld AI & Cloud Training Certificate",
+      "file": "/certificates/Training Certificate.pdf",
+      "type": "Internship Completion"
+    },
+    {
+      "name": "Python Programming Certification (Coursera)",
+      "file": "/certificates/Python-Coursera.pdf",
+      "type": "Course Completion"
+    },
+    {
+      "name": "C Programming Course Certification (Coursera)",
+      "file": "/certificates/Coursera C .pdf",
+      "type": "Course Completion"
+    },
+    {
+      "name": "Machine Learning Certification (Coursera)",
+      "file": "/certificates/ML Coursera.pdf",
+      "type": "Course Completion"
+    },
+    {
+      "name": "Data Science Certification",
+      "file": "/certificates/coursevData Science .pdf",
+      "type": "Course Completion"
+    },
+    {
+      "name": "IBM Design Thinking Course Certification",
+      "file": "/certificates/course -IBMDesign20251127-30-8n05w5.pdf",
+      "type": "Course Completion"
+    },
+    {
+      "name": "Nasscom Course Certification",
+      "file": "/certificates/Nasscom Course.pdf",
+      "type": "Course Completion"
+    },
+    {
+      "name": "Cyfuture India Offer Letter",
+      "file": "/certificates/Offer-letter CyFuture.pdf",
+      "type": "Offer Letter"
+    },
+    {
+      "name": "Lavanta Naturals Offer Letter",
+      "file": "/certificates/Offer-letter LavantaNaturals Kaushal kumar .pdf",
+      "type": "Offer Letter"
+    },
+    {
+      "name": "SkillCraft Technology Offer Letter",
+      "file": "/certificates/Offer-letter SkillCraft.pdf",
+      "type": "Offer Letter"
+    },
+    {
+      "name": "Linuxworld Informatics Offer Letter",
+      "file": "/certificates/Lw Offer letter October.pdf",
+      "type": "Offer Letter"
+    },
+    {
+      "name": "CodeAlpha Offer Letter",
+      "file": "/certificates/Offer LetterCodeAlpha.pdf",
+      "type": "Offer Letter"
+    },
+    {
+      "name": "VGU Academic Recommendation Letter",
+      "file": "/certificates/VGU_Recommendation_Letter_KaushalKumar.pdf",
+      "type": "Recommendation Letter"
+    }
+  ],
+  "additionalInfo": {
+    "softSkills": ["Leadership", "Team Collaboration", "Problem Solving"],
+    "languages": ["English", "Hindi"]
+  },
+  "profilePic": "./dp.jpg",
+  "blogs": [
+    {
+      "id": 1,
+      "tag": "My Story",
+      "title": "Kaushal Kumar: Rise From the Red Earth",
+      "summary": "An inspiring look into my personal journey, overcoming obstacles, rising from humble beginnings, and paving my path in the tech world...",
+      "date": "May 2026",
+      "readTime": "5 min read",
+      "link": "https://medium.com/@kumarkaushalranjh735/kaushal-kumar-rise-from-the-red-earth-05dda6825a8c"
+    },
+    {
+      "id": 2,
+      "tag": "DevOps",
+      "title": "Why Companies Use Kubernetes — Real Case Studies & Benefits",
+      "summary": "Exploring real-world case studies and the strategic advantages Kubernetes brings to orchestration...",
+      "date": "March 2026",
+      "readTime": "8 min read",
+      "link": "https://medium.com/@kumarkaushalranjh735/why-companies-use-kubernetes-real-case-studies-benefits-8bc0c829a325"
+    },
+    {
+      "id": 3,
+      "tag": "DevOps",
+      "title": "Case Study: Why Companies Use Docker and the Benefits They Gain",
+      "summary": "Deep dive into Docker adoption, case studies, and microservices scaling...",
+      "date": "April 2026",
+      "readTime": "7 min read",
+      "link": "https://www.linkedin.com/pulse/case-study-why-companies-use-docker-benefits-gain-kaushal-kumar-46kte"
+    },
+    {
+      "id": 4,
+      "tag": "AWS",
+      "title": "Amazon S3 Storage Classes — Optimize Cost, Performance, and Data Access",
+      "summary": "Optimize storage costs using standard, glacier, and lifecycle rules...",
+      "date": "May 2026",
+      "readTime": "9 min read",
+      "link": "https://medium.com/@kumarkaushalranjh735/amazon-s3-storage-classes-optimize-cost-performance-and-data-access-1b122e0610b1"
+    },
+    {
+      "id": 5,
+      "tag": "Deep Learning",
+      "title": "Understanding Weight Initializers in Deep Learning: Types and Use Cases",
+      "summary": "Weight initialization techniques for neural network scaling and training...",
+      "date": "May 2026",
+      "readTime": "10 min read",
+      "link": "https://medium.com/@kumarkaushalranjh735/understanding-weight-initializers-in-deep-learning-types-and-use-cases-fca218f03761"
+    }
+  ]
+}

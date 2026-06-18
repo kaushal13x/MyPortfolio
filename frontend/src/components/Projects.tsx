@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ExternalLink, Github, Code } from 'lucide-react';
-import { portfolioData } from '../data/portfolio';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const Projects: React.FC = () => {
+  const { data: portfolioData } = usePortfolio();
   const [activeTab, setActiveTab] = useState<'major' | 'minor'>('major');
   const [isVisible, setIsVisible] = useState(false);
   
@@ -39,13 +40,13 @@ const Projects: React.FC = () => {
           {hasMinorProjects && (
             <div className="inline-flex rounded-lg overflow-hidden shadow-lg mb-8 border border-[#2D323C]">
               <button
-                className={`px-8 py-3 font-bold text-lg transition-all duration-300 focus:outline-none ${activeTab === 'major' ? 'bg-gradient-to-r from-[#A64B2A] to-[#E76F3C] text-white shadow-lg scale-105' : 'bg-[#23262F] text-[#F0B45A] hover:bg-[#1A1D24]'}`}
+                className={`px-4 sm:px-8 py-2.5 sm:py-3 font-bold text-sm sm:text-lg transition-all duration-300 focus:outline-none ${activeTab === 'major' ? 'bg-gradient-to-r from-[#A64B2A] to-[#E76F3C] text-white shadow-lg scale-105' : 'bg-[#23262F] text-[#F0B45A] hover:bg-[#1A1D24]'}`}
                 onClick={() => setActiveTab('major')}
               >
                 Major Projects
               </button>
               <button
-                className={`px-8 py-3 font-bold text-lg transition-all duration-300 focus:outline-none ${activeTab === 'minor' ? 'bg-gradient-to-r from-[#E76F3C] to-[#A64B2A] text-white shadow-lg scale-105' : 'bg-[#23262F] text-[#F0B45A] hover:bg-[#1A1D24]'}`}
+                className={`px-4 sm:px-8 py-2.5 sm:py-3 font-bold text-sm sm:text-lg transition-all duration-300 focus:outline-none ${activeTab === 'minor' ? 'bg-gradient-to-r from-[#E76F3C] to-[#A64B2A] text-white shadow-lg scale-105' : 'bg-[#23262F] text-[#F0B45A] hover:bg-[#1A1D24]'}`}
                 onClick={() => setActiveTab('minor')}
               >
                 Minor Projects
@@ -100,7 +101,7 @@ const Projects: React.FC = () => {
               </div>
 
               {/* Project Content */}
-              <div className="p-6 relative z-10">
+              <div className="p-4 sm:p-6 relative z-10">
                 <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-[#E76F3C] transition-colors duration-300">
                   {project.title}
                 </h3>

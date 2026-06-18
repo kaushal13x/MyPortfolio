@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { User, GraduationCap, Briefcase } from 'lucide-react';
-import { portfolioData } from '../data/portfolio';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const About: React.FC = () => {
+  const { data: portfolioData } = usePortfolio();
   const [logs, setLogs] = useState<string[]>([]);
   const logSequence = [
     "Initializing deployment agent...",
@@ -60,7 +61,7 @@ const About: React.FC = () => {
 
         <div className="grid lg:grid-cols-2 gap-8 items-stretch">
           {/* Bio Section */}
-          <div className="bg-[#23262F]/50 backdrop-blur-sm rounded-lg p-6 border border-[#2D323C] flex flex-col justify-between reveal-on-scroll stagger-1">
+          <div className="bg-[#23262F]/50 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-[#2D323C] flex flex-col justify-between reveal-on-scroll stagger-1">
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <User className="text-[#E76F3C]" size={20} />
@@ -77,7 +78,7 @@ const About: React.FC = () => {
           </div>
 
           {/* Simulated DevOps Console */}
-          <div className="bg-[#101216] border border-[#E76F3C]/40 rounded-lg p-5 font-mono text-[11px] text-green-400 shadow-[0_0_15px_rgba(231,111,60,0.1)] h-80 lg:h-auto flex flex-col justify-between overflow-hidden relative reveal-on-scroll stagger-2">
+          <div className="bg-[#101216] border border-[#E76F3C]/40 rounded-lg p-4 sm:p-5 font-mono text-[11px] text-green-400 shadow-[0_0_15px_rgba(231,111,60,0.1)] h-80 lg:h-auto flex flex-col justify-between overflow-hidden relative reveal-on-scroll stagger-2">
             {/* Console Header */}
             <div className="flex justify-between items-center border-b border-[#2D323C] pb-2 mb-3 text-gray-500 select-none">
               <div className="flex gap-1.5">
@@ -114,7 +115,7 @@ const About: React.FC = () => {
         {/* Timeline Section */}
         <div className="grid lg:grid-cols-2 gap-12 mt-16">
           {/* Education */}
-          <div className="bg-[#23262F]/50 backdrop-blur-sm rounded-lg p-6 border border-[#2D323C] reveal-on-scroll stagger-1">
+          <div className="bg-[#23262F]/50 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-[#2D323C] reveal-on-scroll stagger-1">
             <div className="flex items-center gap-2 mb-6">
               <GraduationCap className="text-[#E76F3C]" size={20} />
               <h3 className="text-xl font-semibold text-white">Education</h3>
@@ -135,7 +136,7 @@ const About: React.FC = () => {
           </div>
 
           {/* Experience */}
-          <div className="bg-[#23262F]/50 backdrop-blur-sm rounded-lg p-6 border border-[#2D323C] reveal-on-scroll stagger-2">
+          <div className="bg-[#23262F]/50 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-[#2D323C] reveal-on-scroll stagger-2">
             <div className="flex items-center gap-2 mb-6">
               <Briefcase className="text-[#E76F3C]" size={20} />
               <h3 className="text-xl font-semibold text-white">Experience</h3>

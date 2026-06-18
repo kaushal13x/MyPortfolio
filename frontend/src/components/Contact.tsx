@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Send, Linkedin, Github, Instagram, Twitter, MessageSquare } from 'lucide-react';
-import { portfolioData } from '../data/portfolio';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const Contact: React.FC = () => {
+  const { data: portfolioData } = usePortfolio();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -44,7 +45,7 @@ const Contact: React.FC = () => {
     setSubmitStatus('idle');
     
     try {
-      const response = await fetch('https://formspree.io/f/kumarkaushalranjh735@gmail.com', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -116,7 +117,7 @@ const Contact: React.FC = () => {
 
         <div className={`grid lg:grid-cols-2 gap-12 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* Contact Form */}
-          <div className="bg-[#23262F]/50 backdrop-blur-sm rounded-lg p-8 border border-[#2D323C]">
+          <div className="bg-[#23262F]/50 backdrop-blur-sm rounded-lg p-4 sm:p-6 md:p-8 border border-[#2D323C]">
             <h3 className="text-2xl font-semibold text-white mb-6 flex items-center gap-2">
               <Mail className="text-[#E76F3C]" size={24} />
               Send Message
@@ -213,112 +214,106 @@ const Contact: React.FC = () => {
           {/* Contact Information */}
           <div className="space-y-8">
             {/* Social Links */}
-            <div className="bg-[#23262F]/50 backdrop-blur-sm rounded-lg p-8 border border-[#2D323C]">
+            <div className="bg-[#23262F]/50 backdrop-blur-sm rounded-lg p-4 sm:p-6 md:p-8 border border-[#2D323C]">
               <h3 className="text-2xl font-semibold text-white mb-6">Connect With Me</h3>
               
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <a
                   href={portfolioData.contact.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-4 bg-[#1A1D24] hover:bg-blue-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30"
+                  className="flex items-center gap-3 p-3 sm:p-4 bg-[#1A1D24] hover:bg-blue-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30"
                 >
-                  <Linkedin className="text-blue-400" size={24} />
-                  <span className="text-white font-medium">LinkedIn</span>
+                  <Linkedin className="text-blue-400" size={20} />
+                  <span className="text-white font-medium text-sm sm:text-base">LinkedIn</span>
                 </a>
                 
                 <a
                   href={portfolioData.contact.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-4 bg-[#1A1D24] hover:bg-gray-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30"
+                  className="flex items-center gap-3 p-3 sm:p-4 bg-[#1A1D24] hover:bg-gray-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gray-500/30"
                 >
-                  <Github className="text-gray-400" size={24} />
-                  <span className="text-white font-medium">GitHub</span>
+                  <Github className="text-gray-400" size={20} />
+                  <span className="text-white font-medium text-sm sm:text-base">GitHub</span>
                 </a>
                 
                 <a
                   onClick={handleEmailClick}
-                  className="flex items-center gap-3 p-4 bg-[#1A1D24] hover:bg-red-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-red-500/30 cursor-pointer"
+                  className="flex items-center gap-3 p-3 sm:p-4 bg-[#1A1D24] hover:bg-red-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-red-500/30 cursor-pointer"
                 >
-                  <Mail className="text-red-400" size={24} />
-                  <span className="text-white font-medium">Email</span>
+                  <Mail className="text-red-400" size={20} />
+                  <span className="text-white font-medium text-sm sm:text-base">Email</span>
                 </a>
                 
                 <a
                   onClick={handleWhatsAppClick}
-                  className="flex items-center gap-3 p-4 bg-[#1A1D24] hover:bg-green-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 cursor-pointer"
+                  className="flex items-center gap-3 p-3 sm:p-4 bg-[#1A1D24] hover:bg-green-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 cursor-pointer"
                 >
-                  <MessageSquare className="text-green-400" size={24} />
-                  <span className="text-white font-medium">WhatsApp</span>
+                  <MessageSquare className="text-green-400" size={20} />
+                  <span className="text-white font-medium text-sm sm:text-base">WhatsApp</span>
                 </a>
                 
                 <a
                   href={portfolioData.contact.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-4 bg-[#1A1D24] hover:bg-pink-650 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-pink-500/30"
+                  className="flex items-center gap-3 p-3 sm:p-4 bg-[#1A1D24] hover:bg-pink-650 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-pink-500/30"
                 >
-                  <Instagram className="text-pink-400" size={24} />
-                  <span className="text-white font-medium">Instagram</span>
+                  <Instagram className="text-pink-400" size={20} />
+                  <span className="text-white font-medium text-sm sm:text-base">Instagram</span>
                 </a>
                 
                 <a
                   href={portfolioData.contact.twitter}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-4 bg-[#1A1D24] hover:bg-blue-400 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-400/30"
+                  className="flex items-center gap-3 p-3 sm:p-4 bg-[#1A1D24] hover:bg-blue-400 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-400/30"
                 >
-                  <Twitter className="text-blue-400" size={24} />
-                  <span className="text-white font-medium">Twitter</span>
+                  <Twitter className="text-blue-400" size={20} />
+                  <span className="text-white font-medium text-sm sm:text-base">Twitter</span>
                 </a>
               </div>
             </div>
 
             {/* Direct Contact */}
-            <div className="bg-[#23262F]/50 backdrop-blur-sm rounded-lg p-8 border border-[#2D323C]">
+            <div className="bg-[#23262F]/50 backdrop-blur-sm rounded-lg p-4 sm:p-6 md:p-8 border border-[#2D323C]">
               <h3 className="text-2xl font-semibold text-white mb-6">Direct Contact</h3>
               
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={handleCallClick}
-                    className="flex items-center gap-3 p-3 bg-[#1A1D24] hover:bg-blue-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30 cursor-pointer"
-                  >
-                    <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                    </svg>
-                    <span className="text-gray-300 font-semibold text-sm">Call</span>
-                  </button>
-                </div>
+              <div className="grid grid-cols-1 gap-3">
+                <button
+                  onClick={handleCallClick}
+                  className="w-full flex items-center justify-center gap-3 p-3.5 bg-[#1A1D24] hover:bg-blue-600 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/30 cursor-pointer text-white"
+                >
+                  <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                  </svg>
+                  <span className="font-semibold text-sm">Call (+91 91620 06290)</span>
+                </button>
                 
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={handleSMSClick}
-                    className="flex items-center gap-3 p-3 bg-[#1A1D24] hover:bg-yellow-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-yellow-500/30 cursor-pointer"
-                  >
-                    <svg className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                    </svg>
-                    <span className="text-gray-300 font-semibold text-sm">Text Message</span>
-                  </button>
-                </div>
+                <button
+                  onClick={handleSMSClick}
+                  className="w-full flex items-center justify-center gap-3 p-3.5 bg-[#1A1D24] hover:bg-yellow-600 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-yellow-500/30 cursor-pointer text-white"
+                >
+                  <svg className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                  </svg>
+                  <span className="font-semibold text-sm">Send SMS</span>
+                </button>
                 
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={handleWhatsAppClick}
-                    className="flex items-center gap-3 p-3 bg-[#1A1D24] hover:bg-green-600 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 cursor-pointer"
-                  >
-                    <MessageSquare className="text-green-400" size={20} />
-                    <span className="text-gray-300 font-semibold text-sm">WhatsApp</span>
-                  </button>
-                </div>
+                <button
+                  onClick={handleWhatsAppClick}
+                  className="w-full flex items-center justify-center gap-3 p-3.5 bg-[#1A1D24] hover:bg-green-600 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-green-500/30 cursor-pointer text-white"
+                >
+                  <MessageSquare className="text-green-400" size={18} />
+                  <span className="font-semibold text-sm">Chat on WhatsApp</span>
+                </button>
               </div>
             </div>
 
             {/* Quick Response */}
-            <div className="bg-gradient-to-r from-[#A64B2A]/10 to-[#E76F3C]/10 backdrop-blur-sm rounded-lg p-8 border border-[#E76F3C]/35">
+            <div className="bg-gradient-to-r from-[#A64B2A]/10 to-[#E76F3C]/10 backdrop-blur-sm rounded-lg p-4 sm:p-6 md:p-8 border border-[#E76F3C]/35">
               <h3 className="text-xl font-semibold text-white mb-3">Quick Response</h3>
               <p className="text-gray-300 mb-4 text-sm leading-relaxed">
                 I typically respond to emails within 24 hours. For urgent matters, 

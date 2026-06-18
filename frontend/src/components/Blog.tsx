@@ -1,9 +1,10 @@
 import React from 'react';
 import { BookOpen, Calendar, Clock, ExternalLink } from 'lucide-react';
-import { portfolioData } from '../data/portfolio';
+import { usePortfolio } from '../context/PortfolioContext';
 import dp from '../dp.jpg';
 
 const Blog: React.FC = () => {
+  const { data: portfolioData } = usePortfolio();
   const blogs = portfolioData.blogs || [];
 
   const getTagClass = (tag: string, id: number) => {
@@ -63,7 +64,7 @@ const Blog: React.FC = () => {
             return (
               <div
                 key={blog.id}
-                className={`group relative bg-[#23262F]/80 backdrop-blur-md rounded-2xl p-6 border border-[#2D323C] hover:border-[#E76F3C]/40 hover:shadow-[0_0_24px_rgba(231,111,60,0.15)] transition-all duration-300 flex flex-col justify-between hover:scale-[1.03] reveal-on-scroll stagger-${staggerNum}`}
+                className={`group relative bg-[#23262F]/80 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-[#2D323C] hover:border-[#E76F3C]/40 hover:shadow-[0_0_24px_rgba(231,111,60,0.15)] transition-all duration-300 flex flex-col justify-between hover:scale-[1.03] reveal-on-scroll stagger-${staggerNum}`}
               >
               {/* Outer starry glow on card hover */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#E76F3C]/5 to-[#F0B45A]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>

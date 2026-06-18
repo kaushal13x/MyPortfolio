@@ -7,6 +7,29 @@ const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    const isLight = savedTheme === 'light';
+    setIsDarkMode(!isLight);
+    if (isLight) {
+      document.documentElement.classList.add('light');
+    } else {
+      document.documentElement.classList.remove('light');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newDarkMode = !isDarkMode;
+    setIsDarkMode(newDarkMode);
+    if (newDarkMode) {
+      document.documentElement.classList.remove('light');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.add('light');
+      localStorage.setItem('theme', 'light');
+    }
+  };
+
   const navItems = [
     { label: 'Home', target: '#home' },
     { label: 'About', target: '#about' },
@@ -16,7 +39,7 @@ const Navbar: React.FC = () => {
     { label: 'Projects', target: '#projects' },
     { label: 'Blog', target: '#blog' },
     { label: 'Contact', target: '#contact' },
-    { label: 'Certifications', target: '#resume' }, // scrolls to certifications inside Resume
+    { label: 'Certifications', target: '#certifications' }, // scrolls to certifications vault
   ];
 
   useEffect(() => {
@@ -86,7 +109,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-[#0F1115]/90 backdrop-blur-md shadow-lg border-b border-[#2D323C] py-3' : 'bg-transparent py-5'}`}>
-      <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center">
           <a 
@@ -136,8 +159,8 @@ const Navbar: React.FC = () => {
         {/* Action Button & Theme Toggle */}
         <div className="flex items-center gap-3">
           <button
-            onClick={() => setIsDarkMode(!isDarkMode)}
-            className="p-2.5 rounded-full border border-[#2D323C] text-[#F0B45A] hover:text-white hover:bg-[#23262F]/50 transition-all duration-300"
+            onClick={toggleTheme}
+            className="p-2.5 rounded-full border border-[#2D323C] text-[#F0B45A] hover:text-white hover:bg-[#23262F]/50 transition-all duration-300 cursor-pointer"
             title="Toggle theme"
           >
             {isDarkMode ? <Sun size={18} className="animate-pulse" /> : <Moon size={18} />}
@@ -156,7 +179,7 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu Drawer Overlay */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 top-[80px] z-45 bg-[#0F1115]/98 backdrop-blur-lg border-t border-[#2D323C] lg:hidden animate-fade-in overflow-y-auto max-h-[calc(100vh-80px)]">
+        <div className={`fixed inset-x-0 bottom-0 z-45 bg-[#0F1115]/98 backdrop-blur-lg border-t border-[#2D323C] lg:hidden animate-fade-in overflow-y-auto transition-all duration-300 ${isScrolled ? 'top-[65px]' : 'top-[81px]'}`}>
           <div className="flex flex-col p-6 space-y-3">
             {navItems.map((item, index) => (
               <a
