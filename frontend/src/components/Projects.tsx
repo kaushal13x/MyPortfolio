@@ -65,7 +65,7 @@ const Projects: React.FC = () => {
             return (
               <div 
                 key={project.id}
-                className={`group relative bg-[#23262F]/50 backdrop-blur-sm rounded-lg overflow-hidden border border-[#2D323C] hover:border-[#E76F3C] transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#E76F3C]/10 reveal-on-scroll stagger-${staggerNum}`}
+                className={`group relative bg-[#23262F]/50 backdrop-blur-sm rounded-lg overflow-hidden border border-[#2D323C] hover:border-[#E76F3C] transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#E76F3C]/10 reveal-on-scroll stagger-${staggerNum} flex flex-col`}
               >
               {/* Glow Effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#E76F3C]/5 to-[#F0B45A]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -101,7 +101,7 @@ const Projects: React.FC = () => {
               </div>
 
               {/* Project Content */}
-              <div className="p-4 sm:p-6 relative z-10">
+              <div className="p-4 sm:p-6 relative z-10 flex-1 flex flex-col">
                 <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-[#E76F3C] transition-colors duration-300">
                   {project.title}
                 </h3>
@@ -123,7 +123,7 @@ const Projects: React.FC = () => {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex gap-3">
+                <div className="flex gap-3 mt-auto">
                   <a 
                     href={project.github}
                     target="_blank"

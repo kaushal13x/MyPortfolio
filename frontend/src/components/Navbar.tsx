@@ -139,7 +139,7 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Menu Navigation */}
-        <div className="hidden lg:flex items-center gap-1 bg-[#1A1D24]/80 backdrop-blur-md border border-[#2D323C] rounded-full px-2 py-1">
+        <div className="hidden xl:flex items-center gap-1 bg-[#1A1D24]/80 backdrop-blur-md border border-[#2D323C] rounded-full px-2 py-1">
           {navItems.map((item) => (
             <a
               key={item.label}
@@ -169,7 +169,7 @@ const Navbar: React.FC = () => {
           {/* Hamburger Menu Toggle (Mobile) */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2.5 rounded-full border border-[#2D323C] text-[#E76F3C] hover:text-white hover:bg-[#23262F]/50 transition-all duration-300"
+            className="xl:hidden p-2.5 rounded-full border border-[#2D323C] text-[#E76F3C] hover:text-white hover:bg-[#23262F]/50 transition-all duration-300"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -179,7 +179,7 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu Drawer Overlay */}
       {isMobileMenuOpen && (
-        <div className={`fixed inset-x-0 bottom-0 z-45 bg-[#0F1115]/98 backdrop-blur-lg border-t border-[#2D323C] lg:hidden animate-fade-in overflow-y-auto transition-all duration-300 ${isScrolled ? 'top-[65px]' : 'top-[81px]'}`}>
+        <div className={`fixed inset-x-0 bottom-0 z-45 bg-[#0F1115]/98 backdrop-blur-lg border-t border-[#2D323C] xl:hidden animate-fade-in overflow-y-auto transition-all duration-300 ${isScrolled ? 'top-[65px]' : 'top-[81px]'}`}>
           <div className="flex flex-col p-6 space-y-3">
             {navItems.map((item, index) => (
               <a
