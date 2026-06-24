@@ -18,7 +18,8 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   useEffect(() => {
     const fetchPortfolio = async () => {
       try {
-        const response = await fetch('/api/portfolio');
+        const apiBaseUrl = import.meta.env.VITE_API_URL || '';
+        const response = await fetch(`${apiBaseUrl}/api/portfolio`);
         if (!response.ok) {
           throw new Error('Failed to fetch from API');
         }
